@@ -7,11 +7,13 @@ SYSTEM_A_URL = "http://localhost:11434/api/generate"
 #Desktop endpoint
 SYSTEM_B_URL = "http://192.168.217.215:11434/api/generate"
 
+message = "You are going to have a conversation with another AI model right now. Inform the other model what you are doing and then begin"
+
 while True:
     for system_url in [SYSTEM_A_URL, SYSTEM_B_URL]:
         data = {
             "model": "llama3",
-            "prompt": "You are talking to another ollama model right now. Go!",
+            "prompt": message,
             "stream": False
         }
 
@@ -21,7 +23,7 @@ while True:
         if response.status_code == 200:
             result = response.json()
             message = result.get("response", "No response")
-            print("Ollama says:", result["response"])
+            print("Ollama says:", message)
         else:
             print("Error:", response.text)
             break
